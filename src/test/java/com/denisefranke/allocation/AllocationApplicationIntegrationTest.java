@@ -1,9 +1,6 @@
 package com.denisefranke.allocation;
 
-import com.denisefranke.allocation.domain.Developer;
-import com.denisefranke.allocation.domain.Employee;
-import com.denisefranke.allocation.domain.Manager;
-import com.denisefranke.allocation.domain.QATester;
+import com.denisefranke.allocation.domain.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +29,24 @@ public class AllocationApplicationIntegrationTest {
         double expected = (MANAGER_ALLOCATION * 2) + (QATESTER_ALLOCATION * 1) + (DEVELOPER_ALLOCATION * 1);
 
         double actual = managerA.getAllocation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void allocation_Department_ExpectThreeTiersTest() {
+        Department departmentA = new Department("DepartmentA");
+        Employee managerA = new Manager("ManagerA");
+        Employee managerB = new Manager("ManagerB");
+        Employee qATester1 = new QATester("QATester1");
+        Employee developer1 = new Developer("Developer1");
+        managerB.add(qATester1);
+        managerB.add(developer1);
+        managerA.add(managerB);
+        departmentA.add(managerA);
+        double expected = (MANAGER_ALLOCATION * 2) + (QATESTER_ALLOCATION * 1) + (DEVELOPER_ALLOCATION * 1);
+
+        double actual = departmentA.getAllocation();
 
         assertEquals(expected, actual);
     }
