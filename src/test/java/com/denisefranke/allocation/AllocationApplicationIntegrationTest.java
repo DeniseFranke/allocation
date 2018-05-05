@@ -52,7 +52,7 @@ public class AllocationApplicationIntegrationTest {
     }
 
     @Test
-    public void allocation_WhenDeveloper_CannotAddEmployTest() {
+    public void allocation_WhenDeveloper_ExpectCannotAddEmployTest() {
         Employee developer1 = new Developer("Developer1");
         Employee developer2 = new Developer("Developer2");
         developer1.add(developer2);
@@ -61,7 +61,7 @@ public class AllocationApplicationIntegrationTest {
     }
 
     @Test
-    public void allocation_WhenQATester_CannotAddEmployTest() {
+    public void allocation_WhenQATester_ExpectCannotAddEmployTest() {
         Employee qATester1 = new QATester("QATester1");
         Employee qATester2 = new QATester("QATester2");
         qATester1.add(qATester2);
@@ -70,7 +70,7 @@ public class AllocationApplicationIntegrationTest {
     }
 
     @Test
-    public void allocation_OneManagerNoReports_ExpectManagerAllocation() {
+    public void allocation_WhenOneManagerWithNoReports_ExpectManagerAllocation() {
         Employee managerA = new Manager("ManagerA");
 
         assertEquals(MANAGER_ALLOCATION, managerA.getAllocation());
@@ -78,7 +78,15 @@ public class AllocationApplicationIntegrationTest {
     }
 
     @Test
-    public void allocation_FiveDeepHierarchyWithMixedLevels_ExpectCorrectlyCalculatedAllocationForEachManager() {
+    public void allocation_WhenOneDepartmentWithNoReports_ExpectManagerAllocation() {
+        Employee departmentA = new Department("DepartmentA");
+
+        assertEquals(0.00, departmentA.getAllocation());
+        assertNull(departmentA.getEmployee(0));
+    }
+
+    @Test
+    public void allocation_WhenFiveDeepHierarchyWithMixedLevels_ExpectCorrectlyCalculatedAllocationForEachManager() {
         Employee managerA = new Manager("ManagerA");
         Employee qATesterA = new QATester("QATesterA");
         Employee developerA = new Developer("DeveloperA");
