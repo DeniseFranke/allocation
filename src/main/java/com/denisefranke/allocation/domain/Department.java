@@ -14,6 +14,10 @@ public class Department implements Employee {
         this.allocation = 0;
     }
 
+    public Department() {
+
+    }
+
     @Override
     public void add(Employee employee) {
         employees.add(employee);
